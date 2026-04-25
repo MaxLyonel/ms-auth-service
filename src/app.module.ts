@@ -15,17 +15,6 @@ import { RefreshToken } from './auth/entities/refresh-token.entity';
       useFactory: (configService: ConfigService) => {
         const dbType = (configService.get('DATABASE_TYPE') ||
           'sqlite') as string;
-        const isSqlite = dbType === 'sqlite';
-
-        if (isSqlite) {
-          return {
-            type: 'sqlite' as const,
-            database: (configService.get('DATABASE_NAME') ||
-              'db.sqlite') as string,
-            entities: [User, RefreshToken],
-            synchronize: true,
-          };
-        }
 
         return {
           type: dbType as 'postgres' | 'mysql',

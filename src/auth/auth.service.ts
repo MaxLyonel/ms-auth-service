@@ -22,8 +22,6 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    await this.refreshTokenService.revokeAllUserTokens(user.id);
-
     const tokens = await this.generateTokens(user.id, user.email, user.role);
     await this.refreshTokenService.create(
       user.id,

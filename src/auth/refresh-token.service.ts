@@ -16,6 +16,8 @@ export class RefreshTokenService {
     expiresInDays: number = 7,
     deviceInfo?: string,
   ): Promise<RefreshToken> {
+    await this.revokeAllUserTokens(userId);
+
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + expiresInDays);
 
